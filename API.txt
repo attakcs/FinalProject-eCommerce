@@ -1,0 +1,10 @@
+//Project API
+
+Products API
+Ajax POST = resp.data
+http://dev.ecommerce.com/api/Product/Read
+
+Users API
+Ajax POST = resp.data
+http://dev.ecommerce.com/api/User/Read
+

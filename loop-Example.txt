@@ -1,0 +1,38 @@
+//product-catalog.php
+
+<h1>Product Catalog</h1>
+<div id="cards-container" class="cards-container">
+
+</div>
+<script src="/js/models/Product.js"></script>
+<script>
+    Ajax('POST', '/api/Product/Read',
+        null,
+        function (resp) {
+            if (ErrorInResponse(resp)) {
+                return false;
+            }
+
+            const cardsContainer = $('#cards-container')
+			//loop easy example
+            for (let p of resp.data) {
+                let html = `
+                             <img src="/api/Product/Image/${p.image}" alt="${this.product}" /><br>
+                             Product id ${p.product_id}<br>
+                             Category id ${p.category_id}<br>
+                             Category ${p.category}<br>
+                             Product Name ${p.product}<br>
+                             Product description ${p.description}<br>
+                             Price ${eur}${p.price}<br>
+                             Quantity ${p.quantity}<br>
+                             Status ${p.status}<br>
+                           <p class="added">Added: ${p.date_added.toLocaleString('de-AT')} <a class="specs" href="/Product-Specs/${p.product_id}">Specs</a></p>`
+                let card = document.createElement('div')
+                card.className = 'card'
+                card.innerHTML = html
+
+                cardsContainer.appendChild(card)
+            }
+
+        });
+</script>

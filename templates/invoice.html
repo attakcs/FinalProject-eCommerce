@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{EMAIL_SUBJECT}</title>
+</head>
+<body>
+    <body style="padding:0; color:#212121;">
+        <table width="100%" border="0" cellspacing="0" cellpadding="20"><tbody>
+        <tr><td style="font-family: Arial, Helvetica, sans-serif; color:#424242; background-color:#eee;">
+            <table width="100%" border="0" cellspacing="0" cellpadding="10" align="center" style="background-color:#fff;"><tbody>
+                <tr><td style="padding:20px 10px; background-color:#1976d2; color:#fff;">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+                        <td width="80" align="left"><img src="{WEBSITE_URL}/img/logo-email.png" height="64" /></td>
+                        <td><h1 style="font-size:2em; font-weight:normal; color:#fff;">{WEBSITE_TITLE}</h1></td>
+                    </tr></tbody></table>
+                </td></tr>
+        
+                <tr><td>
+                    <h2 style="font-weight:normal;">{EMAIL_SUBJECT}</h2>
+                </td></tr>
+        
+                <tr><td>
+                    <h3 style="margin-bottom:10px; font-weight:normal;">Invoice</h3>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#f5f5f5;"><tbody>
+                        <tr>
+                            <th style="padding:5px 10px; text-align:left; width:150px;">Invoice No</th><td style="padding:5px 10px;">{invoice_id}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding:5px 10px; text-align:left;">Date Created</th><td style="padding:5px 10px;">{date_created}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding:5px 10px; text-align:left;">Payment method</th><td style="padding:5px 10px;">Credit card ({card_number})</td>
+                        </tr>
+                    </tbody></table>
+                </td></tr>
+
+                <tr><td>
+                    <h3 style="margin-bottom:10px; font-weight:normal;">Customer</h3>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-color:#f5f5f5;"><tbody>
+                        <tr>
+                            <th style="padding:5px 10px; text-align:left; width:150px;">Name</th><td style="padding:5px 10px;">{customer}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding:5px 10px; text-align:left;">Email</th><td style="padding:5px 10px;">{email}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding:5px 10px; text-align:left;">Address</th><td style="padding:5px 10px;">{address}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding:5px 10px; text-align:left;">Address 2</th><td style="padding:5px 10px;">{address2}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding:5px 10px; text-align:left;">State</th><td style="padding:5px 10px;">{state}</td>
+                        </tr>
+                    </tbody></table>
+                </td></tr>
+        
+                <tr><td>
+                    <h3 style="margin-bottom:10px; font-weight:normal;">Order Details</h3>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="padding:1px;border: solid 1px #E0E0E0;border-radius: 6px;margin-bottom: 1rem;"><tbody>
+                        [repeat order=>p]
+                            <tr>
+                                <td style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;"><img src="{WEBSITE_URL}/api/Product/Image/{p.image}" style="max-width:64px;"></td>
+                                <td style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;">
+                                    <strong>{p.product}</strong><br>
+                                    <span style="color: #9E9E9E;">{p.brief}</span>
+                                </td>
+                                <td style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;text-align: right;white-space: nowrap;">&times;{p.quantity}</td>
+                                <td style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;text-align: right;white-space: nowrap;">{CURRENCY}{p.total}</td>
+                            </tr>
+                        [/repeat]
+                        </tbody>
+                        <tfoot>
+                            <tr style="color: #4CAF50;">
+                                <td colspan="2" style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;">
+                                    <strong>Coupon Code</strong><br>
+                                    <span>{coupon}</span><br>
+                                    <span style="color: #9E9E9E;">{coupon_description}</span>
+                                </td>
+                                <td style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;text-align: right;white-space: nowrap;">%{coupon_percentage}</td>
+                                <td style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;text-align: right;white-space: nowrap;">-{CURRENCY}{discount}</td>
+                            </tr>
+                            <tr style="color: #F44336;">
+                                <td colspan="2" style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;">VAT</td>
+                                <td style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;text-align: right;white-space: nowrap;">%{VAT_PERCENTAGE}</td>
+                                <td style="padding: 10px 5px;border-bottom: solid 1px #E0E0E0;text-align: right;white-space: nowrap;">{CURRENCY}{vat}</td>
+                            </tr>
+                            <tr style="font-weight: bold;background-color: #eeeeee;">
+                                <td colspan="2" style="border: none;padding: 15px 5px;">Total</td>
+                                <td style="border: none;padding: 15px 5px;"></td>
+                                <td style="border: none;padding: 15px 5px;text-align: right;white-space: nowrap;">{CURRENCY}{total}</td>
+                            </tr>
+                        </tfoot>
+                    </table>        
+                </td></tr>
+        
+                <tr><td style="padding:20px 10px; background-color:#212121;">
+                    <table width="100%" border="0" cellspacing="10" cellpadding="0" style="color:#bdbdbd;"><tbody>
+                        <tr>
+                            <td width="1%"><font size="2">Email</font></td>
+                            <td><font size="2">: <a href="mailto:{SUPPORT_EMAIL}" style="color:#ffeb3b;">{SUPPORT_EMAIL}</a></font></td>
+                        </tr>
+                        
+                        <tr>
+                            <td><font size="2">Tel</font></td>
+                            <td><font size="2">: <a href="tel:{SUPPORT_PHONE}" style="color:#ffeb3b;">{SUPPORT_PHONE}</a></font></td>
+                        </tr>
+        
+                        <tr><td colspan="2"><font size="2">
+                            {WEBSITE_TITLE} {COPYRIGHT}. All Rights Reserved
+                        </font></td></tr>
+                    </tbody></table>
+                </td></tr>
+            </tbody></table>
+        </td></tr>
+        </tbody></table>
+</body>
+</html>
